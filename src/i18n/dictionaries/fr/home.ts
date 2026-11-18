@@ -1,0 +1,145 @@
+import { routes } from "@/lib/routes"
+import type { HomeData } from "../../types"
+
+export const home: HomeData = {
+  name: "Accueil",
+  metaTitle: "Oloum Group | Bâtiments préfabriqués : construire, louer, produire",
+  metaDescription:
+    "Oloum Group réunit Yves Oloume SARL (bâtiments préfabriqués, BTP, rayonnages, conteneurs) et Bella Location (location de bâtiments préfabriqués). Douala, partout au Cameroun.",
+  hero: {
+    eyebrow: "Groupe camerounais · Douala · Depuis 2010",
+    titleBefore: "Nous savons",
+    words: ["construire", "louer", "produire"],
+    titleAfter: "les bâtiments dont vous avez besoin.",
+    text: "Oloum Group réunit nos entreprises sous une seule identité. Chacune garde son métier : construire et vendre avec Yves Oloume SARL, louer avec Bella Location et, demain, fabriquer avec l'Usine.",
+    ctas: [
+      { label: "Découvrir nos entités", href: "#entites" },
+      { label: "Demander un devis", href: routes.quote, variant: "light" },
+    ],
+    proofs: ["Plus de 15 ans d'expérience", "Vente et location", "Partout au Cameroun"],
+    scroll: "Défiler",
+    slides: [
+      { image: "craneInstallation", alt: "Module préfabriqué posé à la grue par les équipes du groupe", caption: "Pose d'un module · Douala" },
+      { image: "officeBuilding", alt: "Bâtiment de bureaux préfabriqué sur deux niveaux", caption: "Siège modulaire · Bonapriso" },
+      { image: "modularComplex", alt: "Complexe de bâtiments modulaires", caption: "Complexe modulaire · Maroua" },
+    ],
+  },
+  blocks: [
+    {
+      type: "marquee",
+      items: [
+        "Bureaux",
+        "Logements",
+        "Sanitaires",
+        "Bases-vie",
+        "Cantines",
+        "Bungalows",
+        "Entrepôts",
+        "Modules de stockage",
+        "Construction BTP",
+        "Rénovation",
+        "Rayonnages",
+        "Cerclage",
+        "Conteneurs aménagés",
+        "Location",
+      ],
+    },
+    {
+      type: "intro",
+      eyebrow: "Qui sommes-nous",
+      text: "Un bâtiment ne se résume pas à un chantier. Il faut le concevoir, le construire, parfois le louer le temps d'un projet, l'équiper, l'entretenir et, demain, le fabriquer nous-mêmes. Oloum Group rassemble ces métiers sous un même nom, pour qu'un seul interlocuteur sache vous orienter, quel que soit votre besoin.",
+      sub: "Né à Akwa, au cœur de Douala, le groupe accompagne entreprises, administrations, ONG, écoles, hôpitaux et particuliers dans les dix régions du Cameroun et en Afrique centrale.",
+    },
+    { type: "tree" },
+    { type: "entities" },
+    { type: "pillars" },
+    {
+      type: "stats",
+      tone: "red",
+      items: [
+        { value: "2010", label: "Création d'Yves Oloume SARL" },
+        { value: "650+", label: "Bâtiments et modules livrés" },
+        { value: "10", label: "Régions du Cameroun desservies" },
+        { value: "140", label: "Collaborateurs dans le groupe" },
+      ],
+    },
+    { type: "buyOrRent" },
+    {
+      type: "cards",
+      eyebrow: "Pourquoi le groupe",
+      title: "Un seul groupe, *quatre avantages*.",
+      lead: "Travailler avec Oloum Group, c'est profiter de la force d'un groupe sans perdre la proximité d'une entreprise familiale.",
+      columns: 4,
+      items: [
+        { icon: "users", title: "Un interlocuteur unique", text: "Une seule porte d'entrée pour vos projets : nous orientons votre demande vers la bonne entité et suivons le dossier jusqu'au bout." },
+        { icon: "clock", title: "Des délais tenus", text: "Nos modules sont fabriqués pendant que votre terrain est préparé. Un bâtiment opérationnel en quelques semaines, pas en quelques mois." },
+        { icon: "layers", title: "Toute la chaîne", text: "Conception, construction, location, équipement, maintenance et bientôt production : chaque étape reste dans le groupe." },
+        { icon: "map", title: "Partout au Cameroun", text: "Nos équipes et notre flotte livrent et installent dans les dix régions, et étudient les projets en Afrique centrale." },
+      ],
+    },
+    { type: "projects", limit: 6 },
+    {
+      type: "chips",
+      eyebrow: "Secteurs",
+      title: "Ils nous confient *leurs bâtiments*.",
+      lead: "Des chantiers aux écoles, des mines aux festivals : nos bâtiments s'adaptent à chaque secteur.",
+      items: [
+        { icon: "hardhat", title: "BTP et génie civil", text: "Bases-vie, bureaux de chantier, sanitaires" },
+        { icon: "factory", title: "Mines, pétrole et gaz", text: "Campements, cantines, ateliers" },
+        { icon: "building", title: "Administrations", text: "Bureaux, guichets, extensions" },
+        { icon: "home", title: "Éducation", text: "Salles de classe, internats, sanitaires" },
+        { icon: "shield", title: "Santé", text: "Centres de santé, salles d'isolement" },
+        { icon: "globe", title: "ONG et humanitaire", text: "Bureaux, entrepôts, hébergement" },
+        { icon: "box", title: "Industrie et logistique", text: "Entrepôts, rayonnages, cerclage" },
+        { icon: "spark", title: "Événementiel", text: "Sanitaires, kiosques, loges" },
+      ],
+    },
+    {
+      type: "quotes",
+      eyebrow: "Témoignages",
+      title: "Ce que disent *nos clients*.",
+      items: [
+        {
+          quote: "Notre base-vie de 120 personnes a été installée en six semaines, dans les délais annoncés. L'équipe a été réactive du devis jusqu'au montage.",
+          author: "Directeur de projet",
+          role: "Entreprise de travaux routiers · Kribi",
+        },
+        {
+          quote: "Louer chez Bella Location nous a évité un investissement lourd pour un chantier de quatorze mois. La maintenance mensuelle a été irréprochable.",
+          author: "Responsable logistique",
+          role: "Génie civil · Edéa",
+        },
+        {
+          quote: "Ils ont conçu notre entrepôt et installé les rayonnages : un seul interlocuteur, un seul planning, aucune mauvaise surprise.",
+          author: "Directrice des opérations",
+          role: "Distribution · Douala",
+        },
+      ],
+    },
+    {
+      type: "teaser",
+      eyebrow: "Bientôt",
+      title: "La prochaine étape : *produire*.",
+      text: "L'Usine est le projet d'avenir du groupe. Elle fabriquera nos panneaux sandwich, nos modules et nos rayonnages au Cameroun, pour mieux maîtriser la qualité et les délais de nos deux entités.",
+      cta: { label: "Suivre le projet", href: routes.usine },
+      facts: [
+        ["Produits", "Panneaux, modules, rayonnages"],
+        ["Objectif", "Mise en service en 2028"],
+        ["Capacité visée", "300 modules par an"],
+      ],
+    },
+    { type: "news", limit: 3, eyebrow: "Actualités", title: "La vie *du groupe*." },
+    {
+      type: "faq",
+      eyebrow: "Questions fréquentes",
+      title: "Vous vous demandez *peut-être*…",
+      items: [
+        ["Quelle est la différence entre Yves Oloume SARL et Bella Location ?", "Les deux travaillent sur le bâtiment préfabriqué. Yves Oloume SARL le conçoit, le construit et le vend ; elle réalise aussi des travaux BTP, des rayonnages et des conteneurs aménagés. Bella Location le loue, avec transport, installation et maintenance compris."],
+        ["Je ne sais pas si je dois acheter ou louer.", "Décrivez votre projet : nous vous orientons vers l'entité la plus adaptée à votre durée d'usage et à votre budget. En règle générale, la location est plus intéressante en dessous de 18 à 24 mois."],
+        ["Intervenez-vous en dehors de Douala ?", "Oui, dans les dix régions du Cameroun. Les projets au Gabon, au Tchad, en Guinée équatoriale, en Centrafrique et au Congo sont étudiés au cas par cas."],
+        ["En combien de temps recevrai-je un devis ?", "Sous 48 heures ouvrées pour un projet standard, après un premier échange. Une visite de site peut être organisée pour les projets complexes."],
+        ["Qu'est-ce que l'Usine ?", "Le projet de production du groupe. Elle fabriquera panneaux, modules et rayonnages pour Yves Oloume SARL et Bella Location. Le projet est en préparation."],
+      ],
+    },
+  ],
+}

@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ─── Design tokens ────────────────────────────────────────────────────────
+   Palette of the Yves Oloume SARL site (deep red, amber accent, ink, concrete),
+   motion system of the Supplies and Works site. See docs/04-GUIDE-DE-STYLE.md. */
+:root {
+  --red: #920f15;
+  --red-dark: #6e0b10;
+  --amber: #fcae42;
+  --amber-soft: #fcae4233;
+  --ink: #1a1a1a;
+  --night: #111111;
+  --muted: #666666;
+  --concrete: #f3f4f6;
+  --line: #d9dade;
+  --white: #ffffff;
+
+  --dur-micro: 200ms;
+  --dur-element: 500ms;
+  --dur-section: 900ms;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-red: var(--red);
+  --color-red-dark: var(--red-dark);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-ink: var(--ink);
+  --color-night: var(--night);
+  --color-muted: var(--muted);
+  --color-concrete: var(--concrete);
+  --color-line: var(--line);
+
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, monospace;
+
+  --text-display: clamp(2.6rem, 1.3rem + 4.6vw, 5.8rem);
+  --text-display--line-height: 0.98;
+  --text-h1: clamp(2.5rem, 1.5rem + 4vw, 5.2rem);
+  --text-h1--line-height: 1.02;
+  --text-h2: clamp(2rem, 1.35rem + 2.6vw, 3.6rem);
+  --text-h2--line-height: 1.06;
+  --text-h3: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem);
+  --text-h3--line-height: 1.15;
+  --text-lead: clamp(1.08rem, 1rem + 0.4vw, 1.35rem);
+  --text-lead--line-height: 1.55;
+
+  --ease-out-expo: var(--ease-out-expo);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-scroll-cue: scroll-cue 1.8s var(--ease-out-expo) infinite;
+  --animate-ken-burns: ken-burns 14s ease-out both;
+}
+
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+@keyframes ken-burns {
+  from { transform: scale(1.18); }
+  to { transform: scale(1.02); }
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-gutter: stable;
+}
+body {
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: clip;
+  line-height: 1.6;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+  font-weight: 800;
+}
+::selection {
+  background: var(--amber);
+  color: var(--red-dark);
+}
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+address { font-style: normal; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+
+/* Technical blueprint grid (light and dark variants). */
+.blueprint {
+  background-image: linear-gradient(rgba(26, 26, 26, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 26, 26, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.blueprint-dark {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+/* Film grain on dark bands. */
+.grain { position: relative; isolation: isolate; }
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Amber highlighter behind emphasised words; amber text on dark bands. */
+.mark {
+  background-image: linear-gradient(transparent 60%, var(--amber) 60%, var(--amber) 92%, transparent 92%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding-inline: 0.04em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.on-dark .mark {
+  background-image: none;
+  color: var(--amber);
+}
+.mark-anim {
+  background-size: 0% 100%;
+  transition: background-size 0.9s var(--ease-out-expo) 0.25s;
+}
+.marks-in .mark-anim { background-size: 100% 100%; }
+
+/* Eyebrow label: mono uppercase with an amber square. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: 600 0.72rem/1.3 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.eyebrow::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--amber);
+  box-shadow: 0 0 0 4px var(--amber-soft);
+}
+.on-dark .eyebrow { color: var(--amber); }
+
+/* Link underline that draws in. */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur-element) var(--ease-out-expo);
+}
+.link-draw:hover, .link-draw:focus-visible { background-size: 100% 1px; }
+
+/* Unified photo treatment: muted, full colour on hover. */
+.photo-fx img {
+  filter: saturate(0.72) contrast(1.06);
+  transition: filter 0.8s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+.group:hover .photo-fx img, .photo-fx:hover img { filter: none; }
+
+/* Corner brackets (technical drawing marks) on framed images. */
+.corners { position: relative; }
+.corners::before, .corners::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 22px;
+  height: 22px;
+  border: 0 solid var(--amber);
+  pointer-events: none;
+}
+.corners::before { top: -8px; left: -8px; border-top-width: 2px; border-left-width: 2px; }
+.corners::after { bottom: -8px; right: -8px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* Placeholder chips for [BRACKETS] in the copy. */
+.ph {
+  display: inline;
+  padding: 0.05em 0.35em;
+  background: var(--amber-soft);
+  color: var(--red-dark);
+  outline: 1px dashed var(--red);
+  outline-offset: -1px;
+  font: 600 0.85em var(--font-sans);
+}
+
+/* Elements hidden until GSAP reveals them (only when JS + motion are on). */
+html.js-motion [data-reveal] { opacity: 0; }
+html.js-motion [data-split] { visibility: hidden; }
+html.js-motion [data-hero] { opacity: 0; }
+.split-line { padding-bottom: 0.1em; margin-bottom: -0.1em; }
+
+/* Skip link */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -100px;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--amber);
+  color: var(--red-dark);
+  font-weight: 600;
+}
+.skip-link:focus { top: 1rem; }
+
+/* Custom cursor */
+@media (pointer: coarse), (hover: none) {
+  .cursor-host { display: none !important; }
+}
+html.has-cursor, html.has-cursor * { cursor: none !important; }
+html.has-cursor input, html.has-cursor textarea, html.has-cursor select { cursor: text !important; }
+
+/* Group tree connectors draw in (scaleX/scaleY driven by GSAP). */
+.tree-line { transform-origin: left center; }
+.tree-vline { transform-origin: center top; }
+
+/* Dashed outline used by the future factory. */
+.dashed-box {
+  background-image: linear-gradient(90deg, currentColor 50%, transparent 0), linear-gradient(90deg, currentColor 50%, transparent 0),
+    linear-gradient(0deg, currentColor 50%, transparent 0), linear-gradient(0deg, currentColor 50%, transparent 0);
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 10px 1px, 10px 1px, 1px 10px, 1px 10px;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+}
+
+/* Blueprint drawing in the factory teaser. */
+.draw-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 2.4s var(--ease-out-expo);
+}
+.drawn .draw-path { stroke-dashoffset: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .mark-anim { background-size: 100% 100%; }
+  .draw-path { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes grow {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}

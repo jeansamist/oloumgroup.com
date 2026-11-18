@@ -1,0 +1,145 @@
+import { routes } from "@/lib/routes"
+import type { HomeData } from "../../types"
+
+export const home: HomeData = {
+  name: "Home",
+  metaTitle: "Oloum Group | Prefabricated buildings: build, rent, produce",
+  metaDescription:
+    "Oloum Group brings together Yves Oloume SARL (prefabricated buildings, construction works, shelving, containers) and Bella Location (prefabricated building rental). Douala and across Cameroon.",
+  hero: {
+    eyebrow: "Cameroonian group · Douala · Since 2010",
+    titleBefore: "We know how to",
+    words: ["build", "rent", "produce"],
+    titleAfter: "the buildings you need.",
+    text: "Oloum Group brings our companies together under one identity. Each keeps its own business: building and selling with Yves Oloume SARL, renting with Bella Location and, tomorrow, manufacturing with the Factory.",
+    ctas: [
+      { label: "Discover our companies", href: "#entites" },
+      { label: "Request a quote", href: routes.quote, variant: "light" },
+    ],
+    proofs: ["More than 15 years' experience", "Sales and rental", "Across Cameroon"],
+    scroll: "Scroll",
+    slides: [
+      { image: "craneInstallation", alt: "Prefabricated module being lifted into place by crane by the group's teams", caption: "Module installation · Douala" },
+      { image: "officeBuilding", alt: "Two-storey prefabricated office building", caption: "Modular head office · Bonapriso" },
+      { image: "modularComplex", alt: "Complex of modular buildings", caption: "Modular complex · Maroua" },
+    ],
+  },
+  blocks: [
+    {
+      type: "marquee",
+      items: [
+        "Offices",
+        "Housing",
+        "Sanitary units",
+        "Site camps",
+        "Canteens",
+        "Bungalows",
+        "Warehouses",
+        "Storage modules",
+        "Construction works",
+        "Renovation",
+        "Shelving & racking",
+        "Strapping",
+        "Converted containers",
+        "Rental",
+      ],
+    },
+    {
+      type: "intro",
+      eyebrow: "Who we are",
+      text: "A building is more than a construction site. It has to be designed, built, sometimes rented for the length of a project, equipped, maintained and, tomorrow, manufactured by us. Oloum Group brings these businesses together under one name, so that a single contact can point you in the right direction, whatever you need.",
+      sub: "Born in Akwa, in the heart of Douala, the group serves businesses, government bodies, NGOs, schools, hospitals and private clients across Cameroon's ten regions and in Central Africa.",
+    },
+    { type: "tree" },
+    { type: "entities" },
+    { type: "pillars" },
+    {
+      type: "stats",
+      tone: "red",
+      items: [
+        { value: "2010", label: "Yves Oloume SARL founded" },
+        { value: "650+", label: "Buildings and modules delivered" },
+        { value: "10", label: "Regions of Cameroon served" },
+        { value: "140", label: "Employees across the group" },
+      ],
+    },
+    { type: "buyOrRent" },
+    {
+      type: "cards",
+      eyebrow: "Why the group",
+      title: "One group, *four advantages*.",
+      lead: "Working with Oloum Group means the strength of a group without losing the closeness of a family business.",
+      columns: 4,
+      items: [
+        { icon: "users", title: "A single point of contact", text: "One entry point for your projects: we route your request to the right company and follow it through to the end." },
+        { icon: "clock", title: "Deadlines met", text: "Our modules are manufactured while your site is being prepared. An operational building in a few weeks, not a few months." },
+        { icon: "layers", title: "The whole chain", text: "Design, construction, rental, fit-out, maintenance and soon production: every step stays within the group." },
+        { icon: "map", title: "Across Cameroon", text: "Our teams and fleet deliver and install in all ten regions, and assess projects across Central Africa." },
+      ],
+    },
+    { type: "projects", limit: 6 },
+    {
+      type: "chips",
+      eyebrow: "Sectors",
+      title: "They trust us with *their buildings*.",
+      lead: "From building sites to schools, from mines to festivals: our buildings adapt to every sector.",
+      items: [
+        { icon: "hardhat", title: "Construction and civil engineering", text: "Site camps, site offices, sanitary units" },
+        { icon: "factory", title: "Mining, oil and gas", text: "Camps, canteens, workshops" },
+        { icon: "building", title: "Public administration", text: "Offices, service counters, extensions" },
+        { icon: "home", title: "Education", text: "Classrooms, boarding facilities, sanitary units" },
+        { icon: "shield", title: "Healthcare", text: "Health centres, isolation rooms" },
+        { icon: "globe", title: "NGOs and humanitarian", text: "Offices, warehouses, accommodation" },
+        { icon: "box", title: "Industry and logistics", text: "Warehouses, racking, strapping" },
+        { icon: "spark", title: "Events", text: "Sanitary units, kiosks, dressing rooms" },
+      ],
+    },
+    {
+      type: "quotes",
+      eyebrow: "Testimonials",
+      title: "What *our clients* say.",
+      items: [
+        {
+          quote: "Our 120-person site camp was installed in six weeks, exactly on schedule. The team was responsive from quote to assembly.",
+          author: "Project Director",
+          role: "Road construction company · Kribi",
+        },
+        {
+          quote: "Renting from Bella Location spared us a heavy investment for a fourteen-month project. The monthly maintenance was flawless.",
+          author: "Logistics Manager",
+          role: "Civil engineering · Edéa",
+        },
+        {
+          quote: "They designed our warehouse and installed the racking: one contact, one schedule, no unpleasant surprises.",
+          author: "Operations Director",
+          role: "Distribution · Douala",
+        },
+      ],
+    },
+    {
+      type: "teaser",
+      eyebrow: "Coming soon",
+      title: "The next step: *produce*.",
+      text: "The Factory is the group's project for the future. It will manufacture our sandwich panels, modules and racking in Cameroon, giving our two companies tighter control over quality and lead times.",
+      cta: { label: "Follow the project", href: routes.usine },
+      facts: [
+        ["Products", "Panels, modules, racking"],
+        ["Target", "Commissioning in 2028"],
+        ["Target capacity", "300 modules per year"],
+      ],
+    },
+    { type: "news", limit: 3, eyebrow: "News", title: "Life *at the group*." },
+    {
+      type: "faq",
+      eyebrow: "Frequently asked questions",
+      title: "You *may be* wondering…",
+      items: [
+        ["What is the difference between Yves Oloume SARL and Bella Location?", "Both work with prefabricated buildings. Yves Oloume SARL designs, builds and sells them; it also carries out construction works, shelving and racking, and container conversions. Bella Location rents them, with transport, installation and maintenance included."],
+        ["I'm not sure whether to buy or rent.", "Describe your project: we will direct you to the company best suited to your period of use and budget. As a rule, renting is the better option for under 18 to 24 months."],
+        ["Do you work outside Douala?", "Yes, in all ten regions of Cameroon. Projects in Gabon, Chad, Equatorial Guinea, the Central African Republic and Congo are assessed case by case."],
+        ["How quickly will I receive a quote?", "Within 48 working hours for a standard project, after an initial discussion. A site visit can be arranged for complex projects."],
+        ["What is the Factory?", "The group's production project. It will manufacture panels, modules and racking for Yves Oloume SARL and Bella Location. The project is in preparation."],
+      ],
+    },
+  ],
+}
