@@ -7,7 +7,7 @@ import type { Dictionary } from "@/i18n/get-dictionary"
 import { href as h } from "@/lib/routes"
 import { group } from "@/lib/site"
 import { BackToTop, NewsletterForm, Wordmark } from "./FooterParts"
-import LanguageSwitcher from "./LanguageSwitcher"
+import LanguageSelect from "./LanguageSelect"
 
 export default function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const f = dict.footer
@@ -82,7 +82,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
           </div>
         </div>
 
-        <div className="overflow-hidden px-3 pb-4 text-white/90">
+        <div className="overflow-hidden pb-4 text-white/90">
           <Wordmark text={f.wordmark} />
         </div>
       </div>
@@ -97,7 +97,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
               {link.label}
             </Link>
           ))}
-          <LanguageSwitcher current={locale} label={dict.common.language} light />
+          <LanguageSelect current={locale} label={dict.common.language} names={dict.common.languages} />
         </div>
       </div>
       <BackToTop label={dict.common.backToTop} />

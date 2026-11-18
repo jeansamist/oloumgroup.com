@@ -10,7 +10,6 @@ import type { Dictionary } from "@/i18n/get-dictionary"
 import { useSitePathname } from "@/lib/hooks"
 import { href as h } from "@/lib/routes"
 import { cn } from "@/lib/utils"
-import LanguageSwitcher from "./LanguageSwitcher"
 import MobileMenu from "./MobileMenu"
 
 type Menu = "group" | "entities" | null
@@ -142,7 +141,6 @@ export default function Header({ locale, t, entities, common }: { locale: Locale
           </nav>
 
           <div className="flex shrink-0 items-center gap-3">
-            <LanguageSwitcher current={locale} label={common.language} light={light} className="hidden sm:flex" />
             <div className="hidden sm:block">
               <Button href={l("/devis")} size="sm" magnetic>
                 {t.cta}

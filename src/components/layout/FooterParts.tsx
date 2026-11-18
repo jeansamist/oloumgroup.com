@@ -6,9 +6,43 @@ import { scrollToTarget } from "@/components/motion/SmoothScroll"
 import { isTouchDevice, prefersReducedMotion } from "@/lib/motion"
 import { cn } from "@/lib/utils"
 
-/** Giant "Oloum Group" wordmark: each letter's weight follows the cursor (slow wave on touch). */
+/**
+ * Giant "Oloum Group" wordmark spanning the full screen width. The font size is
+ * fitted to the viewport, then each letter gets a fixed-width slot so the
+ * weight animation (cursor distance, slow wave on touch) never changes the
+ * overall width.
+ */
 export function Wordmark({ text }: { text: string }) {
   const ref = useRef<HTMLParagraphElement>(null)
+
+  // Fit to the full width (re-run on resize and once fonts are loaded).
+  useEffect(() => {
+    const root = ref.current
+    if (!root) return
+    const letters = Array.from(root.querySelectorAll<HTMLSpanElement>("[data-l]"))
+    const fit = () => {
+      const target = root.parentElement!.clientWidth
+      let size = 100
+      // Two passes: the second corrects sub-pixel rounding of the locked slots.
+      for (let pass = 0; pass < 2; pass++) {
+        letters.forEach((el) => (el.style.width = ""))
+        root.style.fontSize = `${size}px`
+        const natural = root.getBoundingClientRect().width
+        if (!natural) return
+        size = (size * target) / natural
+        root.style.fontSize = `${size}px`
+        // Lock each letter's slot at the base weight.
+        letters.forEach((el) => (el.style.width = `${el.getBoundingClientRect().width}px`))
+        size = (size * target) / root.getBoundingClientRect().width
+      }
+      root.style.fontSize = `${size}px`
+    }
+    fit()
+    document.fonts?.ready.then(fit).catch(() => {})
+    const ro = new ResizeObserver(fit)
+    ro.observe(root.parentElement!)
+    return () => ro.disconnect()
+  }, [])
 
   useEffect(() => {
     const root = ref.current
@@ -37,7 +71,8 @@ export function Wordmark({ text }: { text: string }) {
           const d = Math.hypot(pointer.x - (r.left + r.width / 2), pointer.y - (r.top + r.height / 2))
           k = Math.max(0, 1 - d / 420)
         }
-        el.style.fontVariationSettings = `"wght" ${Math.round(150 + k * 750)}, "wdth" ${Math.round(62 + k * 63)}`
+        // Heavier letters get narrower so they stay inside their slot.
+        el.style.fontVariationSettings = `"wght" ${Math.round(250 + k * 650)}, "wdth" ${Math.round(100 - k * 30)}`
         el.style.color = k > 0.7 ? "var(--amber)" : ""
       })
       raf = requestAnimationFrame(loop)
@@ -55,10 +90,10 @@ export function Wordmark({ text }: { text: string }) {
   }, [])
 
   return (
-    <p ref={ref} aria-label={text} className="font-display text-[clamp(3rem,15.5vw,15.5rem)] leading-[0.85] tracking-[-0.05em] whitespace-nowrap select-none">
+    <p ref={ref} aria-label={text} className="w-max font-display text-[15vw] leading-[0.82] whitespace-nowrap select-none">
       {text.split("").map((ch, i) => (
-        <span key={i} aria-hidden data-l className="inline-block transition-colors duration-300" style={{ fontVariationSettings: '"wght" 300, "wdth" 90' }}>
-          {ch === " " ? " " : ch}
+        <span key={i} aria-hidden data-l className="inline-block text-center transition-colors duration-300" style={{ fontVariationSettings: '"wght" 250, "wdth" 100' }}>
+          {ch === " " ? "\u00a0" : ch}
         </span>
       ))}
     </p>
