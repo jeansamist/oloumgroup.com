@@ -50,7 +50,7 @@ export function EntityMark({ entity, className, size = 44 }: { entity: EntityKey
         width: size,
         height: size,
         fontSize: size * 0.36,
-        background: s.dashed ? "transparent" : s.color,
+        backgroundColor: s.dashed ? "transparent" : s.color,
         color: s.dashed ? "currentColor" : s.ink,
       }}
     >

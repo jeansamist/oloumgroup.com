@@ -176,7 +176,14 @@ html.lenis, html.lenis body { height: auto; }
 /* Unified photo treatment: muted, full colour on hover. */
 .photo-fx img {
   filter: saturate(0.72) contrast(1.06);
-  transition: filter 0.8s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+  /* Tailwind v4 `scale-*` / `translate-*` utilities use the individual
+     transform properties, so they must be transitioned explicitly. */
+  transition:
+    filter 0.8s var(--ease-out-expo),
+    transform 1.2s var(--ease-out-expo),
+    scale 1.2s var(--ease-out-expo),
+    translate 1.2s var(--ease-out-expo),
+    rotate 1.2s var(--ease-out-expo);
 }
 .group:hover .photo-fx img, .photo-fx:hover img { filter: none; }
 

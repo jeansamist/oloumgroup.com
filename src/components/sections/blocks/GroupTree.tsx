@@ -23,14 +23,19 @@ export default function GroupTree({ t, entities, locale, soon }: { t: Dictionary
   useGSAP(
     () => {
       if (prefersReducedMotion()) return
+      // fromTo with explicit end values: never read the "current" state, which
+      // the hover transitions (and React's dev double-mount) can leave mid-way.
       const tl = gsap.timeline({ scrollTrigger: { trigger: root.current, start: "top 70%", once: true } })
-      tl.from("[data-node='root']", { y: 30, opacity: 0, duration: 0.7, ease: "expo.out" })
-        .from("[data-v='root']", { scaleY: 0, duration: 0.4, ease: "power2.out" }, "-=0.2")
-        .from("[data-h]", { scaleX: 0, duration: 0.6, ease: "power2.inOut" })
-        .from("[data-v='branch']", { scaleY: 0, duration: 0.3, stagger: 0.08 }, "-=0.1")
-        .from("[data-node='branch']", { y: 30, opacity: 0, duration: 0.7, stagger: 0.12, ease: "expo.out" }, "-=0.1")
-        .from("[data-v='leaf']", { scaleY: 0, duration: 0.3 }, "-=0.3")
-        .from("[data-node='leaf']", { y: 20, opacity: 0, duration: 0.6, stagger: 0.1, ease: "expo.out" }, "-=0.1")
+      const rise = (y: number) => ({ from: { y, opacity: 0 }, to: { y: 0, opacity: 1, ease: "expo.out", clearProps: "transform,opacity" } })
+      const node = rise(30)
+      const leaf = rise(20)
+      tl.fromTo("[data-node='root']", node.from, { ...node.to, duration: 0.7 })
+        .fromTo("[data-v='root']", { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power2.out" }, "-=0.2")
+        .fromTo("[data-h]", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.inOut" })
+        .fromTo("[data-v='branch']", { scaleY: 0 }, { scaleY: 1, duration: 0.3, stagger: 0.08 }, "-=0.1")
+        .fromTo("[data-node='branch']", node.from, { ...node.to, duration: 0.7, stagger: 0.12 }, "-=0.1")
+        .fromTo("[data-v='leaf']", { scaleY: 0 }, { scaleY: 1, duration: 0.3 }, "-=0.3")
+        .fromTo("[data-node='leaf']", leaf.from, { ...leaf.to, duration: 0.6, stagger: 0.1 }, "-=0.1")
     },
     { scope: root },
   )
@@ -62,7 +67,7 @@ export default function GroupTree({ t, entities, locale, soon }: { t: Dictionary
           </div>
 
           {/* Horizontal rail (desktop) */}
-          <div aria-hidden className="relative mx-[16.66%] hidden h-0.5 lg:block">
+          <div aria-hidden className="relative mx-[calc((100%-3rem)/6)] hidden h-0.5 lg:block">
             <span data-h className="tree-line absolute inset-0 bg-red" />
           </div>
 
@@ -73,9 +78,9 @@ export default function GroupTree({ t, entities, locale, soon }: { t: Dictionary
               return (
                 <li key={n.entity} className="flex flex-col items-center">
                   <span data-v="branch" aria-hidden className={cn("tree-vline hidden h-10 w-0.5 lg:block", lit(n.entity, children) ? "bg-amber" : "bg-red", future && "bg-transparent border-l-2 border-dashed border-red")} />
+                  <div data-node="branch" className="w-full">
                   <Link
                     href={h(locale, n.href)}
-                    data-node="branch"
                     data-cursor="link"
                     onMouseEnter={() => setActive(n.entity)}
                     onFocus={() => setActive(n.entity)}
@@ -100,16 +105,16 @@ export default function GroupTree({ t, entities, locale, soon }: { t: Dictionary
                     </div>
                     <p className="border-t border-line pt-3 text-sm text-muted">{n.model}</p>
                   </Link>
+                  </div>
 
                   {n.children.length > 0 && (
                     <>
                       <span data-v="leaf" aria-hidden className={cn("tree-vline h-8 w-0.5", lit(n.entity, children) ? "bg-amber" : "bg-ink/40")} />
                       <ul className="grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-1">
                         {n.children.map((c) => (
-                          <li key={c.entity}>
+                          <li key={c.entity} data-node="leaf">
                             <Link
                               href={h(locale, c.href)}
-                              data-node="leaf"
                               onMouseEnter={() => setActive(c.entity)}
                               onFocus={() => setActive(c.entity)}
                               className={cn(
