@@ -27,3 +27,6 @@ next-env.d.ts
 !.env.example
 
 .DS_Store
+docs/copie-client/*/*.md
+docs/copie-client/*/*.docx
+docs/copie-client/*/*.pdf
